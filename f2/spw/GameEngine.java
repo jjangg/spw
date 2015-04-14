@@ -75,7 +75,17 @@ public class GameEngine implements KeyListener, GameReporter{
 				score += 100;
 			}
 		}
-		
+		Iterator<Gun> g_iter = guns.iterator();
+		while(g_iter.hasNext()){
+			Gun g = g_iter.next();
+			g.proceed();
+			
+			if(!g.isAlive()){
+				g_iter.remove();
+				gp.sprites.remove(g);
+				score += 1000;
+			}
+		}
 		gp.updateGameUI(this);
 		
 		Rectangle2D.Double vr = v.getRectangle();
@@ -87,8 +97,14 @@ public class GameEngine implements KeyListener, GameReporter{
 				return;
 			}
 		}
-	}
-	
+		for(Gun g : guns){
+			er = g.getRectangle();
+			if(er.intersects(vr)){
+				
+			}
+		}
+
+	}	
 	public void die(){
 		timer.stop();
 	}
